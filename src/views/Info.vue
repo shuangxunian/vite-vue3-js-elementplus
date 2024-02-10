@@ -3,7 +3,7 @@
 
 <template>
   <div>
-    123
+    info
   </div>
 </template>
 
