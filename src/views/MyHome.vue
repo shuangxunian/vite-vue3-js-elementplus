@@ -6,12 +6,21 @@ import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
 
+const routerList = ref([
+  {
+    index: "users",
+    name: "用户",
+    icon: "Menu"
+  },
+  {
+    index: "info",
+    name: "信息",
+    icon: "Service"
+  },
+])
+
 function handleSelect(key, keyPath) {
-  if (key === '1') {
-    router.push('/users')
-  } else if (key === '2') {
-    router.push('/info')
-  }
+  router.push('/' + key)
 }
 
 function logout() {
@@ -34,17 +43,13 @@ function logout() {
     <div class="body">
       <div class="left">
         <el-menu
-          default-active="1"
+          :default-active="routerList[0].index"
           class="el-menu-vertical-demo"
           @select="handleSelect"
         >
-          <el-menu-item index="1">
-            <el-icon><Menu /></el-icon>
-            <span>用户管理</span>
-          </el-menu-item>
-          <el-menu-item index="2">
-            <el-icon><Menu /></el-icon>
-            <span>化妆品管理</span>
+          <el-menu-item v-for="obj in routerList" :key="obj.index" :index="obj.index">
+            <el-icon><component :is="obj.icon" /></el-icon>
+            <span>{{ obj.name }}</span>
           </el-menu-item>
         </el-menu>
       </div>
@@ -89,48 +94,4 @@ function logout() {
     }
   }
 }
-// .home-container {
-//   height: 100%;
-// }
-// .el-header {
-//   background-color: #373d41;
-//   display: flex;
-//   justify-content: space-between;
-//   padding-left: 0;
-//   align-items: center;
-//   color: #fff;
-//   font-size: 20px;
-//   > div {
-//     display: flex;
-//     align-items: center;
-//     span {
-//       margin-left: 15px;
-//     }
-//   }
-// }
-
-// .el-aside {
-//   background-color: #333744;
-//   .el-menu {
-//     border-right: none;
-//   }
-// }
-
-// .el-main {
-//   background-color: #eaedf1;
-// }
-
-// .iconfont {
-//   margin-right: 10px;
-// }
-
-// .toggle-button {
-//   background-color: #4a5064;
-//   font-size: 10px;
-//   line-height: 24px;
-//   color: #fff;
-//   text-align: center;
-//   letter-spacing: 0.2em;
-//   cursor: pointer;
-// }
 </style>
